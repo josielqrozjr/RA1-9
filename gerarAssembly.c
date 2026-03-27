@@ -9,7 +9,7 @@ static int rotuloMemoria = 0; // Variável global para controle de rótulos
 
 void gerarAssembly(Expressao *expressao, char *codigoAssembly)
 {
-    char instrucao[256];
+    char instrucao[512];
 
     // Gerar código Assembly para cada token na expressão
     for (int i = 0; i < expressao->tamanho; i++)
@@ -20,7 +20,7 @@ void gerarAssembly(Expressao *expressao, char *codigoAssembly)
         {
         case TOKEN_NUMERO:
             // Gerar código para carregar um número em um registrador
-            sprintf(instrucao,
+            snprintf(instrucao, sizeof(instrucao),
                     "@ Carregando numero %s\n"
                     "LDR r0, =const_%d    @ Endereco do numero na RAM\n"
                     "VLDR.F64 D0, [r0]    @ Carregar valor 64-bits para D0\n"
@@ -32,7 +32,7 @@ void gerarAssembly(Expressao *expressao, char *codigoAssembly)
 
         case TOKEN_ALFA:
             // Gerar código para carregar uma variável (letra) em um registrador
-            sprintf(instrucao, 
+            snprintf(instrucao, sizeof(instrucao),
                     "@ Salvando na memoria: %s\n"
                     "VPOP {D0}            @ Desempilhar o resultado\n"
                     "LDR r0, =var_%s      @ Capturar endereco da variavel\n"
