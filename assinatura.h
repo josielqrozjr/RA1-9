@@ -48,6 +48,9 @@ void estadoAlfa(const char* expressao, int *posicao, Token *tokenAtual);
 // Função para tokenizar a expressão (parseExpressao.c)
 Expressao parseExpressao(const char* expressao);
 
+// Função de tratamento de erros e validação (excecoes.c)
+bool validarExpressao(Expressao *expressao, int numeroLinha);
+
 // Função para ler o arquivo de entrada (lerArquivo.c)
 int lerArquivo(const char *nomeArquivo, char expressoes[][MAX_TOKEN_POR_EXPRESSAO], int *quantExpressoes);
 

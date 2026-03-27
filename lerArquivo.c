@@ -10,7 +10,7 @@ int lerArquivo(const char* nomeArquivo, char expressoes[][MAX_TOKEN_POR_EXPRESSA
     FILE *arquivo = fopen(nomeArquivo, "r");
 
     if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo: %s\n", nomeArquivo);
+        printf("ERRO: Ao abrir o arquivo: %s\n", nomeArquivo);
         return 0; // Retornar 0 para indicar falha na leitura
     }
 

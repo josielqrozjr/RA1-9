@@ -47,16 +47,26 @@ void estadoInicial(const char* expressao, int *posicao, Token *tokenAtual) {
 // Função para processar o estado de números
 void estadoNumero(const char* expressao, int *posicao, Token *tokenAtual) {
     int indice = 0;
+    int pontosDecimais = 0;
     tokenAtual->tipo = TOKEN_NUMERO;
 
     // Leitura dos dígitos do número e possível ponto decimal
     while (expressao[*posicao] != '\0' && (isdigit(expressao[*posicao]) || expressao[*posicao] == '.' )) {
+        if (expressao[*posicao] == '.') {
+            pontosDecimais++;
+        }
+        
         if (indice < MAX_TOKEN_TAM - 1) {
             tokenAtual->valor[indice++] = expressao[*posicao];
         }
         (*posicao)++;
     }
     tokenAtual->valor[indice] = '\0';
+
+    // Verificação para garantir que o número não tenha mais de um ponto decimal
+    if (pontosDecimais > 1 || tokenAtual->valor[indice - 1] == '.') {
+        tokenAtual->tipo = TOKEN_ERRO;
+    }
 }
 
 // Função para processar o estado de operadores
