@@ -71,7 +71,7 @@ int lerArquivo(const char *nomeArquivo, char expressoes[][MAX_TOKEN_POR_EXPRESSA
 void executarExpressao(Expressao *expressao, TabelaSimbolos *tabelaMemoria, int linhaAtual);
 
 // Função para geração de Assembly (gerarAssembly.c)
-void gerarAssembly(Expressao *expressao, char *codigoAssembly);
+void gerarAssembly(Expressao *expressao, char *codigoAssembly, char *dadosAssembly);
 
 // Função para exibir os resultados (exibirResultados.c)
 void exibirResultados(double *resultados, int quantResultados, const char *codigoAssembly);
