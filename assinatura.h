@@ -65,10 +65,10 @@ bool validarExpressao(Expressao *expressao, int numeroLinha);
 int lerArquivo(const char *nomeArquivo, char expressoes[][MAX_TOKEN_POR_EXPRESSAO], int *quantExpressoes);
 
 // Função para executar e gerenciar memória (executarExpressao.c)
-void executarExpressao(Expressao *tokens, TabelaSimbolos *tabelaMemoria, int linhaAtual);
+void executarExpressao(Expressao *expressao, TabelaSimbolos *tabelaMemoria, int linhaAtual);
 
 // Função para geração de Assembly (gerarAssembly.c)
-void gerarAssembly(Expressao *tokens, char *codigoAssembly);
+void gerarAssembly(Expressao *expressao, char *codigoAssembly);
 
 // Função para exibir os resultados (exibirResultados.c)
 void exibirResultados(double *resultados, int quantResultados);
