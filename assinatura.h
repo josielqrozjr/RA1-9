@@ -38,6 +38,16 @@ typedef struct {
     int tamanho;                            // Número de tokens na expressão
 } Expressao;
 
+// Estrutura para o mapa de memória (variáveis e seus valores)
+typedef struct {
+    char nome[MAX_TOKEN_TAM];  // Nome da variável (letra maiúscula)
+} VariavelMemoria;
+
+typedef struct {
+    VariavelMemoria variaveis[100];  // Mapa de memória para 100 variáveis
+    int quantidade;              
+} TabelaSimbolos;
+
 // Assinaturas das funções
 // Máquina de estados para análise léxica (maquinaEstados.c)
 void estadoInicial(const char* expressao, int *posicao, Token *tokenAtual); 
@@ -55,7 +65,7 @@ bool validarExpressao(Expressao *expressao, int numeroLinha);
 int lerArquivo(const char *nomeArquivo, char expressoes[][MAX_TOKEN_POR_EXPRESSAO], int *quantExpressoes);
 
 // Função para executar e gerenciar memória (executarExpressao.c)
-void executarExpressao(Expressao *tokens);
+void executarExpressao(Expressao *tokens, TabelaSimbolos *tabelaMemoria, int linhaAtual);
 
 // Função para geração de Assembly (gerarAssembly.c)
 void gerarAssembly(Expressao *tokens, char *codigoAssembly);
