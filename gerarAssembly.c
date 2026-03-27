@@ -62,3 +62,4 @@ void gerarAssembly(Expressao *expressao, char *codigoAssembly)
             strcat(codigoAssembly, "VPUSH {D2}           @ Empilhar resultado\n");
         }
     }
+    
