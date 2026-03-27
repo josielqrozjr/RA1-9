@@ -43,7 +43,8 @@ int main(int argc, char *argv[])
 
     // Criar tabela de símbolos para gerenciar variáveis e seus valores
     TabelaSimbolos tabelaMemoria;
-    tabelaMemoria.quantidade = 0; // Inicializa a quantidade de variáveis registradas
+    tabelaMemoria.quantidade = 0;       // Inicializa a quantidade de variáveis registradas
+    char bufferAssembly[10000] = "";    // Buffer para acumular o código Assembly gerado
 
     // Processamento Lexical e Validação de Exceções
     for (int i = 0; i < quantidadeLinhas; i++)
@@ -67,7 +68,8 @@ int main(int argc, char *argv[])
         // Executar a expressão e gerenciar o mapa de memória para variáveis, preparando para a geração de Assembly
         executarExpressao(&expressaoTokenizada, &tabelaMemoria, i + 1);
 
-        // gerarAssembly(&expressaoTokenizada, bufferAssembly);
+        // Gerar o código Assembly correspondente à expressão processada
+        gerarAssembly(&expressaoTokenizada, bufferAssembly);
     }
 
     // Mostra o resumo da memória mapeada no final
@@ -76,9 +78,10 @@ int main(int argc, char *argv[])
     for (int v = 0; v < tabelaMemoria.quantidade; v++) {
         printf("- %s\n", tabelaMemoria.variaveis[v].nome);
     }
-    printf("=================================\n");
+    printf("************************************\n");
 
-    // exibirResultados(vetorDeResultados, qtdResultados);
+    // Exibir os resultados finais, incluindo o código Assembly gerado e o relatório de compilação
+    exibirResultados(NULL, 0, bufferAssembly);
 
     return 0;
 }
