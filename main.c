@@ -41,6 +41,10 @@ int main(int argc, char *argv[])
     printf("Arquivo '%s' lido com sucesso! (%d linhas encontradas)\n", nomeArquivo, quantidadeLinhas);
     printf("--------------------------------------------------\n");
 
+    // Criar tabela de símbolos para gerenciar variáveis e seus valores
+    TabelaSimbolos tabelaMemoria;
+    tabelaMemoria.quantidade = 0; // Inicializa a quantidade de variáveis registradas
+
     // Processamento Lexical e Validação de Exceções
     for (int i = 0; i < quantidadeLinhas; i++)
     {
@@ -60,9 +64,19 @@ int main(int argc, char *argv[])
         printf("Tokens Validos:  ");
         imprimirTokens(expressaoTokenizada);
 
-        // executarExpressao(&expressaoTokenizada);
+        // Executar a expressão e gerenciar o mapa de memória para variáveis, preparando para a geração de Assembly
+        executarExpressao(&expressaoTokenizada, &tabelaMemoria, i + 1);
+
         // gerarAssembly(&expressaoTokenizada, bufferAssembly);
     }
+
+    // Mostra o resumo da memória mapeada no final
+    printf("\n=== RESUMO DA MEMORIA MAPEADA ===\n");
+    printf("Total de Variaveis (MEM): %d\n", tabelaMemoria.quantidade);
+    for (int v = 0; v < tabelaMemoria.quantidade; v++) {
+        printf("- %s\n", tabelaMemoria.variaveis[v].nome);
+    }
+    printf("=================================\n");
 
     // exibirResultados(vetorDeResultados, qtdResultados);
 
