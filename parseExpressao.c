@@ -26,7 +26,7 @@ Expressao parseExpressao(const char* expressao) {
 
         // Guardar o token processado na expressão se houver espaço
         if (expressao_linha.tamanho < MAX_TOKEN_POR_EXPRESSAO) {
-            expressao_linha.tokens[expressao_linha.tamanho++] = tokenAtual;
+            expressao_linha.tokens[expressao_linha.tamanho] = tokenAtual;
             expressao_linha.tamanho++;
         } else {
             // Caso a expressão exceda o número máximo de tokens, pode-se optar por tratar o erro ou simplesmente ignorar os tokens adicionais
