@@ -1,4 +1,4 @@
 /*
-file: maquinaEstado.c
+file: maquinaEstados.c
 Implementação da máquina de estados da aplicação.
 */
