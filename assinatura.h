@@ -41,9 +41,9 @@ typedef struct {
 
 // Assinaturas das funções
 // Máquina de estados para análise léxica (maquinaEstados.c)
-void estadoInicial(const char* expressao, int *posicao, Token *tokenAtual);
-void estadoNumero(const char* expressao, int *posicao, Token *tokenAtual);
-void estadoOperador(const char* expressao, int *posicao, Token *tokenAtual);
+void estadoInicial(const char* expressao, int *posicao, Token *tokenAtual); 
+void estadoNumero(const char* expressao, int *posicao, Token *tokenAtual); 
+void estadoOperador(const char* expressao, int *posicao, Token *tokenAtual); 
 void estadoAlfa(const char* expressao, int *posicao, Token *tokenAtual);
 
 // Função para tokenizar a expressão (parseExpressao.c)
@@ -52,6 +52,13 @@ Expressao parseExpressao(const char* expressao);
 // Função para ler o arquivo de entrada (lerArquivo.c)
 int lerArquivo(const char *nomeArquivo, char expressoes[][MAX_TOKEN_POR_EXPRESSAO], int *quantExpressoes);
 
-// Função para executar 
+// Função para executar e gerenciar memória (executarExpressao.c)
+void executarExpressao(Expressao *tokens);
+
+// Função para geração de Assembly (gerarAssembly.c)
+void gerarAssembly(Expressao *tokens, char *codigoAssembly);
+
+// Função para exibir os resultados (exibirResultados.c)
+void exibirResultados(double *resultados, int quantResultados);
 
 #endif // ASSINATURA_H
