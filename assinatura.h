@@ -1,6 +1,9 @@
 /*
 file: assinatura.h
 Cabeçalhos das funções utilizadas na aplicação.
+Autor: Josiel Queiroz Júnior
+GitHub: josielqrozjr
+Grupo: RA1 9
 */
 
 #ifndef ASSINATURA_H

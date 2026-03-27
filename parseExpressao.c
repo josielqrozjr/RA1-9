@@ -1,6 +1,9 @@
 /*
 file: parseExpressao.c
 Implementação das funções de análise e interpretação de expressões.
+Autor: Josiel Queiroz Júnior
+GitHub: josielqrozjr
+Grupo: RA1 9
 */
 
 #include "assinatura.h"

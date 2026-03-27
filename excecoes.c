@@ -1,6 +1,9 @@
 /*
 file: excecoes.c
 Implementação das funções de tratamento de exceção.
+Autor: Josiel Queiroz Júnior
+GitHub: josielqrozjr
+Grupo: RA1 9
 */
 
 #include "assinatura.h"

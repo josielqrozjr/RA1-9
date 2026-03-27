@@ -1,6 +1,9 @@
 /*
 file: lerArquivo.c
 Implementação das funções de leitura de arquivos.
+Autor: Josiel Queiroz Júnior
+GitHub: josielqrozjr
+Grupo: RA1 9
 */
 
 #include "assinatura.h"

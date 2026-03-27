@@ -1,6 +1,9 @@
 /*
 file: maquinaEstados.c
 Implementação da máquina de estados da aplicação.
+Autor: Josiel Queiroz Júnior
+GitHub: josielqrozjr
+Grupo: RA1 9
 */
 
 #include "assinatura.h"

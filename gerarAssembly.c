@@ -1,6 +1,9 @@
 /*
 file: gerarAssembly.c
 Implementação das funções de geração de código Assembly ARMv7 (IEEE 754).
+Autor: Josiel Queiroz Júnior
+GitHub: josielqrozjr
+Grupo: RA1 9
 */
 
 #include "assinatura.h"

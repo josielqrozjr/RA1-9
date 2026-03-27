@@ -1,6 +1,9 @@
 /*
 file: executarExpressao.c
 Implementação das funções de execução de expressões.
+Autor: Josiel Queiroz Júnior
+GitHub: josielqrozjr
+Grupo: RA1 9
 */
 
 #include "assinatura.h"

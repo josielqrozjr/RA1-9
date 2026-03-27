@@ -1,6 +1,9 @@
 /*
 file: main.c
 Função principal da aplicação.
+Autor: Josiel Queiroz Júnior
+GitHub: josielqrozjr
+Grupo: RA1 9
 */
 
 #include "assinatura.h"
