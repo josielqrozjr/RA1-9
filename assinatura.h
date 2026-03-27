@@ -71,6 +71,6 @@ void executarExpressao(Expressao *expressao, TabelaSimbolos *tabelaMemoria, int 
 void gerarAssembly(Expressao *expressao, char *codigoAssembly);
 
 // Função para exibir os resultados (exibirResultados.c)
-void exibirResultados(double *resultados, int quantResultados);
+void exibirResultados(double *resultados, int quantResultados, const char *codigoAssembly)
 
 #endif // ASSINATURA_H

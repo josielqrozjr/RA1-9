@@ -5,3 +5,6 @@ da compilação, incluindo erros, variáveis mapeadas e exportar
 o arquivo Assembly.
 */
 
+#include "assinatura.h"
+
+void exibirResultados(double *resultados, int )
