@@ -70,10 +70,11 @@ int lerArquivo(const char *nomeArquivo, char expressoes[][MAX_TOKEN_POR_EXPRESSA
 // Função para executar e gerenciar memória (executarExpressao.c)
 void executarExpressao(Expressao *expressao, TabelaSimbolos *tabelaMemoria, int linhaAtual);
 
-// Função para geração de Assembly (gerarAssembly.c)
+// Função para geração de Assembly e salvamento em arquivo (gerarAssembly.c)
 void gerarAssembly(Expressao *expressao, char *codigoAssembly, char *dadosAssembly);
+int salvarAssembly(const char *nomeArquivo, const char *codigoAssembly, const char *dadosAssembly, TabelaSimbolos *tabelaMemoria);
 
 // Função para exibir os resultados (exibirResultados.c)
-void exibirResultados(double *resultados, int quantResultados, const char *codigoAssembly);
+void exibirResultados(double *resultados, int quantResultados);
 
 #endif // ASSINATURA_H
