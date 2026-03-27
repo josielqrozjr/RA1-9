@@ -21,7 +21,6 @@ typedef enum {
     TOKEN_PAREN_ABERTURA,   // Parêntese de abertura: (
     TOKEN_PAREN_FECHADO,    // Parêntese de fechamento: )
     TOKEN_KEYWORD_RES,      // Palavra-chave: RES
-    TOKEN_KEYWORD_MEM,      // Palavra-chave: MEM
     TOKEN_ALFA,             // Letras maiúsculas do alfabeto
     TOKEN_ERRO,             // Token inválido
     TOKEN_FIM               // Fim da expressão

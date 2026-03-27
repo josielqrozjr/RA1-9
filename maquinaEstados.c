@@ -89,6 +89,5 @@ void estadoAlfa(const char* expressao, int *posicao, Token *tokenAtual) {
 
     // Classificação do token como palavra-chave ou alfa
     if (strcmp(tokenAtual->valor, "RES") == 0) { tokenAtual->tipo = TOKEN_KEYWORD_RES; }
-    else if (strcmp(tokenAtual->valor, "MEM") == 0) { tokenAtual->tipo = TOKEN_KEYWORD_MEM; }
     else { tokenAtual->tipo = TOKEN_ALFA; }
 }
