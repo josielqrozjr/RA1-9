@@ -12,7 +12,7 @@ static const char *nomeArquivoAssembly = "cpulatorAssembly.s";
 void exibirResultados(double *resultados, int quantResultados, const char *codigoAssembly)
 {
 
-    printf("\n=== FASE DE COMPILACAO CONCLUIDA ===\n");
+    printf("\n*** FASE DE COMPILACAO CONCLUIDA ***\n");
     printf("Status: SUCESSO.\n");
 
     FILE *arquivoAssembly = fopen(nomeArquivoAssembly, "w");
