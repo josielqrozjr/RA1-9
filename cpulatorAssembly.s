@@ -1,7 +1,20 @@
 .data
- historico_res
-    VPUSH {D0}           @ Devolve para a pilha RPN
-
+const_0: .double 3.5
+const_1: .double 2.0
+const_2: .double 10.0
+const_3: .double 4.5
+const_4: .double 2.0
+const_5: .double 3.0
+const_6: .double 8.0
+const_7: .double 2.0
+const_8: .double 10.0
+const_9: .double 3.0
+const_10: .double 10.0
+const_11: .double 3.0
+const_12: .double 2.0
+const_13: .double 3
+const_14: .double 42.0
+const_15: .double 1
 
 @ Variaveis de Memoria (8 bytes = 64 bits)
 var_X: .space 8
