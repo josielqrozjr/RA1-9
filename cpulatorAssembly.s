@@ -100,13 +100,9 @@ _start:
     @ Operacao Matematica: //
     VPOP {D1}            @ B (Operando Direita)
     VPOP {D0}            @ A (Operando Esquerda)
-    VCVT.S32.F64 S0, D0  @ Converte A para Int32
-    VCVT.S32.F64 S2, D1  @ Converte B para Int32
-    VMOV r0, S0          @ Move para CPU
-    VMOV r1, S2          @ Move para CPU
-    SDIV r2, r0, r1      @ Divisao Inteira: r2 = A // B
-    VMOV S4, r2          @ Devolve para o Coprocessador
-    VCVT.F64.S32 D2, S4  @ Converte devolta para Float64
+    VDIV.F64 D2, D0, D1  @ D2 = A / B (Divisao real, ex: 3.33)
+    VCVT.S32.F64 S4, D2  @ Converte para Int32 (Trunca os decimais, vira 3)
+    VCVT.F64.S32 D2, S4  @ Converte de volta para Float64 (3.0)
     VPUSH {D2}           @ Empilhar resultado
 
     @ Carregando numero 10.0
@@ -122,15 +118,11 @@ _start:
     @ Operacao Matematica: %
     VPOP {D1}            @ B (Operando Direita)
     VPOP {D0}            @ A (Operando Esquerda)
-    VCVT.S32.F64 S0, D0  @ Converte A para Int32
-    VCVT.S32.F64 S2, D1  @ Converte B para Int32
-    VMOV r0, S0
-    VMOV r1, S2
-    SDIV r2, r0, r1      @ r2 = A / B
-    MUL r3, r2, r1       @ r3 = (A/B) * B
-    SUB r4, r0, r3       @ Resto: r4 = A - r3
-    VMOV S4, r4
-    VCVT.F64.S32 D2, S4  @ Converte devolta para Float64
+    VDIV.F64 D2, D0, D1  @ D2 = A / B
+    VCVT.S32.F64 S4, D2  @ Trunca para inteiro (Quociente)
+    VCVT.F64.S32 D2, S4  @ D2 = Quociente em Float64
+    VMUL.F64 D2, D2, D1  @ D2 = Quociente * Divisor
+    VSUB.F64 D2, D0, D2  @ D2 = A - (Quociente * Divisor) = Resto!
     VPUSH {D2}           @ Empilhar resultado
 
     @ Carregando numero 2.0
