@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     char *nomeArquivoAssembly = "cpulatorAssembly.s"; // Nome do arquivo de saída para o código Assembly
 
     // Matriz para guardar até 100 expressões de até 256 caracteres
-    char linhasTexto[100][MAX_TOKEN_POR_EXPRESSAO];
+    char linhasTexto[100][MAX_TOKEN_POR_EXPRESSAO] = {0};
     int quantidadeLinhas = 0;
 
     // Leitura do Arquivo
@@ -48,8 +48,8 @@ int main(int argc, char *argv[])
     // Criar tabela de símbolos para gerenciar variáveis e seus valores
     TabelaSimbolos tabelaMemoria;
     tabelaMemoria.quantidade = 0;        // Inicializa a quantidade de variáveis registradas
-    char bufferAssembly[10000] = {0};    // Buffer zerado para acumular o código Assembly gerado
-    char bufferDados[10000] = {0};       // Buffer zerado para acumular os dados (constantes e variáveis) para o Assembly
+    char bufferAssembly[16384] = {0};    // Buffer zerado para acumular o código Assembly gerado
+    char bufferDados[16384] = {0};       // Buffer zerado para acumular os dados (constantes e variáveis) para o Assembly
 
     // Processamento Lexical e Validação de Exceções
     for (int i = 0; i < quantidadeLinhas; i++)
