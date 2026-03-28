@@ -10,8 +10,6 @@ Grupo: RA1 9
 
 #include "assinatura.h"
 
-static const char *nomeArquivoAssembly = "cpulatorAssembly.s";
-
 void exibirResultados(double *resultados, int quantResultados)
 {
 

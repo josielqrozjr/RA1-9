@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
     }
 
     char *nomeArquivo = argv[1];
+    char *nomeArquivoAssembly = "cpulatorAssembly.s"; // Nome do arquivo de saída para o código Assembly
 
     // Matriz para guardar até 100 expressões de até 256 caracteres
     char linhasTexto[100][MAX_TOKEN_POR_EXPRESSAO];
@@ -72,7 +73,7 @@ int main(int argc, char *argv[])
         executarExpressao(&expressaoTokenizada, &tabelaMemoria, i + 1);
 
         // Gerar o código Assembly correspondente à expressão processada
-        gerarAssembly(&expressaoTokenizada, bufferAssembly);
+        gerarAssembly(&expressaoTokenizada, bufferAssembly, bufferAssembly);
     }
 
     // Mostra o resumo da memória mapeada no final
@@ -83,8 +84,13 @@ int main(int argc, char *argv[])
     }
     printf("************************************\n");
 
-    // Exibir os resultados finais, incluindo o código Assembly gerado e o relatório de compilação
-    exibirResultados(NULL, 0, bufferAssembly);
+    // Salvar o código Assembly gerado em um arquivo
+    if (salvarAssembly(nomeArquivoAssembly, bufferAssembly, bufferAssembly, &tabelaMemoria))
+    {
+        // Exibir os resultados finais com o relatório de compilação
+        exibirResultados(NULL, 0);
+        printf("Codigo Assembly salvo com sucesso em '%s'.\n", nomeArquivoAssembly);
+    }
 
     return 0;
 }
