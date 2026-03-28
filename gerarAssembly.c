@@ -63,6 +63,7 @@ void gerarAssembly(Expressao *expressao, char *codigoAssembly, char *dadosAssemb
         case TOKEN_OPERADOR:
             // Gerar código para operadores aritméticos
             // Lógica RPN: Desempilha B (direita), desempilha A (esquerda), calcula, empilha resultado
+            strcat(codigoAssembly, "    @ Operacao Matematica: "); // NOVO: Protege como comentário
             strcat(codigoAssembly, token.valor);
             strcat(codigoAssembly, "\n");
             strcat(codigoAssembly, "    VPOP {D1}            @ B (Operando Direita)\n");
