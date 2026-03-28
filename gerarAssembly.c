@@ -14,8 +14,8 @@ static int linhaAtualCompilada = 1; // Variável global para controle de linha a
 
 void gerarAssembly(Expressao *expressao, char *codigoAssembly, char *dadosAssembly)
 {
-    char instrucao[2048];
-    char dado[1024];
+    char instrucao[2048] = {0};
+    char dado[1024] = {0};
 
     // Gerar código Assembly para cada token na expressão
     for (int i = 0; i < expressao->tamanho; i++)
