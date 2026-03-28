@@ -47,5 +47,18 @@ Expressao parseExpressao(const char* expressao) {
         expressao_linha.tamanho++;
     }
 
+    // Exportar os tokens gerados para um arquivo CSV
+    FILE *arquivoTokens = fopen("tokens_gerados.csv", "a");
+    if (arquivoTokens != NULL) {
+        for (int i = 0; i < expressao_linha.tamanho; i++) {
+            // Salva no formato: TIPO;VALOR (Ex: 0;3.14)
+            fprintf(arquivoTokens, "%d;%s\n", expressao_linha.tokens[i].tipo, expressao_linha.tokens[i].valor);
+        }
+        fprintf(arquivoTokens, "---;---\n"); // Separador visual entre as linhas
+        fclose(arquivoTokens);
+    } else {
+        printf("Aviso: Nao foi possivel salvar os tokens no arquivo.\n");
+    }
+
     return expressao_linha;
 }
