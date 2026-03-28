@@ -210,8 +210,8 @@ int salvarAssembly(const char *nomeArquivo, const char *codigoAssembly, const ch
         fprintf(arquivo, "var_%s: .space 8\n", tabelaMemoria->variaveis[i].nome);
     }
 
-    // Imprime o espaço na memória para o histórico de resultados (RES)
-    fprintf(arquivo, "\n    @ Historico de resultados (RES) - Suporta ate 100 linhas\n");
+    // Array para guardar o histórico de resultados (RES)
+    fprintf(arquivo, "\n@ Historico de resultados (RES) - Suporta ate 100 linhas\n");
     fprintf(arquivo, "historico_res: .space 800\n");
 
     // Escrever a seção de código
