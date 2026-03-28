@@ -47,9 +47,9 @@ int main(int argc, char *argv[])
 
     // Criar tabela de símbolos para gerenciar variáveis e seus valores
     TabelaSimbolos tabelaMemoria;
-    tabelaMemoria.quantidade = 0;       // Inicializa a quantidade de variáveis registradas
-    char bufferAssembly[10000] = "";    // Buffer para acumular o código Assembly gerado
-    char bufferDados[10000] = "";       // Buffer para acumular os dados (constantes e variáveis) para o Assembly
+    tabelaMemoria.quantidade = 0;        // Inicializa a quantidade de variáveis registradas
+    char bufferAssembly[10000] = {0};    // Buffer zerado para acumular o código Assembly gerado
+    char bufferDados[10000] = {0};       // Buffer zerado para acumular os dados (constantes e variáveis) para o Assembly
 
     // Processamento Lexical e Validação de Exceções
     for (int i = 0; i < quantidadeLinhas; i++)
