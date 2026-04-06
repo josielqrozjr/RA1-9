@@ -19,14 +19,14 @@ Grupo: RA1 9
 
 // Definindo os tipos de tokens existentes no conjunto
 typedef enum {
-    TOKEN_NUMERO,           // Números inteiros ou decimais
-    TOKEN_OPERADOR,         // Operadores aritméticos: +, -, *, /, //, %, ^
-    TOKEN_PAREN_ABERTURA,   // Parêntese de abertura: (
-    TOKEN_PAREN_FECHADO,    // Parêntese de fechamento: )
-    TOKEN_KEYWORD_RES,      // Palavra-chave: RES
-    TOKEN_ALFA,             // Letras maiúsculas do alfabeto
-    TOKEN_ERRO,             // Token inválido
-    TOKEN_FIM               // Fim da expressão
+    TOKEN_NUMERO,           // (1) Números inteiros ou decimais
+    TOKEN_OPERADOR,         // (2) Operadores aritméticos: +, -, *, /, //, %, ^
+    TOKEN_PAREN_ABERTURA,   // (3) Parêntese de abertura: (
+    TOKEN_PAREN_FECHADO,    // (4) Parêntese de fechamento: )
+    TOKEN_KEYWORD_RES,      // (5) Palavra-chave: RES
+    TOKEN_ALFA,             // (6) Letras maiúsculas do alfabeto
+    TOKEN_ERRO,             // (7) Token inválido
+    TOKEN_FIM               // (8) Fim da expressão
 } TokenTipo;
 
 // Estrutura para representar um token

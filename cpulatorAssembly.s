@@ -13,8 +13,13 @@ const_10: .double 10.0
 const_11: .double 3.0
 const_12: .double 2.0
 const_13: .double 3
-const_14: .double 42.0
-const_15: .double 1
+const_14: .double 1.5
+const_15: .double 2.0
+const_16: .double 3.0
+const_17: .double 4.0
+const_18: .double 42.0
+const_19: .double 2.0
+const_20: .double 1
 
 @ Variaveis de Memoria (8 bytes = 64 bits)
 var_X: .space 8
@@ -225,16 +230,43 @@ fim_pot_0:
     VSTR.F64 D0, [r0]    @ Salva no array historico_res
     VPUSH {D0}           @ Devolve para a pilha RPN
 
-    @ Carregando numero 42.0
+    @ Carregando numero 1.5
     LDR r0, =const_14    @ Endereco do numero na RAM
     VLDR.F64 D0, [r0]    @ Carregar valor 64-bits para D0
     VPUSH {D0}           @ Empilhar na pilha RPN
 
-    @ Salvando na memoria: X
-    VPOP {D0}            @ Desempilhar o resultado
-    LDR r0, =var_X      @ Capturar endereco da variavel
-    VSTR.F64 D0, [r0]    @ Salvar na RAM
-    VPUSH {D0}           @ Re-empilha para manter integridade da linha
+    @ Carregando numero 2.0
+    LDR r0, =const_15    @ Endereco do numero na RAM
+    VLDR.F64 D0, [r0]    @ Carregar valor 64-bits para D0
+    VPUSH {D0}           @ Empilhar na pilha RPN
+
+    @ Operacao Matematica: *
+    VPOP {D1}            @ B (Operando Direita)
+    VPOP {D0}            @ A (Operando Esquerda)
+    VMUL.F64 D2, D0, D1  @ D2 = A * B
+    VPUSH {D2}           @ Empilhar resultado
+
+    @ Carregando numero 3.0
+    LDR r0, =const_16    @ Endereco do numero na RAM
+    VLDR.F64 D0, [r0]    @ Carregar valor 64-bits para D0
+    VPUSH {D0}           @ Empilhar na pilha RPN
+
+    @ Carregando numero 4.0
+    LDR r0, =const_17    @ Endereco do numero na RAM
+    VLDR.F64 D0, [r0]    @ Carregar valor 64-bits para D0
+    VPUSH {D0}           @ Empilhar na pilha RPN
+
+    @ Operacao Matematica: *
+    VPOP {D1}            @ B (Operando Direita)
+    VPOP {D0}            @ A (Operando Esquerda)
+    VMUL.F64 D2, D0, D1  @ D2 = A * B
+    VPUSH {D2}           @ Empilhar resultado
+
+    @ Operacao Matematica: +
+    VPOP {D1}            @ B (Operando Direita)
+    VPOP {D0}            @ A (Operando Esquerda)
+    VADD.F64 D2, D0, D1  @ D2 = A + B
+    VPUSH {D2}           @ Empilhar resultado
 
     @ -- Fim da Linha 8: Salvando no historico --
     VPOP {D0}            @ Copia o resultado final da linha
@@ -246,8 +278,55 @@ fim_pot_0:
     VSTR.F64 D0, [r0]    @ Salva no array historico_res
     VPUSH {D0}           @ Devolve para a pilha RPN
 
+    @ Carregando numero 42.0
+    LDR r0, =const_18    @ Endereco do numero na RAM
+    VLDR.F64 D0, [r0]    @ Carregar valor 64-bits para D0
+    VPUSH {D0}           @ Empilhar na pilha RPN
+
+    @ Salvando na memoria: X
+    VPOP {D0}            @ Desempilhar o resultado
+    LDR r0, =var_X      @ Capturar endereco da variavel
+    VSTR.F64 D0, [r0]    @ Salvar na RAM
+    VPUSH {D0}           @ Re-empilha para manter integridade da linha
+
+    @ -- Fim da Linha 9: Salvando no historico --
+    VPOP {D0}            @ Copia o resultado final da linha
+    LDR r0, =historico_res
+    LDR r1, =8          @ Indice da linha (0-based)
+    MOV r2, #8           @ 8 bytes por double
+    MUL r1, r1, r2       @ Offset
+    ADD r0, r0, r1       @ Endereco do historico
+    VSTR.F64 D0, [r0]    @ Salva no array historico_res
+    VPUSH {D0}           @ Devolve para a pilha RPN
+
+    @ Lendo variavel: X
+    LDR r0, =var_X      @ Capturar endereco da variavel
+    VLDR.F64 D0, [r0]    @ Carrega valor da RAM
+    VPUSH {D0}           @ Empilha na RPN
+
+    @ Carregando numero 2.0
+    LDR r0, =const_19    @ Endereco do numero na RAM
+    VLDR.F64 D0, [r0]    @ Carregar valor 64-bits para D0
+    VPUSH {D0}           @ Empilhar na pilha RPN
+
+    @ Operacao Matematica: +
+    VPOP {D1}            @ B (Operando Direita)
+    VPOP {D0}            @ A (Operando Esquerda)
+    VADD.F64 D2, D0, D1  @ D2 = A + B
+    VPUSH {D2}           @ Empilhar resultado
+
+    @ -- Fim da Linha 10: Salvando no historico --
+    VPOP {D0}            @ Copia o resultado final da linha
+    LDR r0, =historico_res
+    LDR r1, =9          @ Indice da linha (0-based)
+    MOV r2, #8           @ 8 bytes por double
+    MUL r1, r1, r2       @ Offset
+    ADD r0, r0, r1       @ Endereco do historico
+    VSTR.F64 D0, [r0]    @ Salva no array historico_res
+    VPUSH {D0}           @ Devolve para a pilha RPN
+
     @ Carregando numero 1
-    LDR r0, =const_15    @ Endereco do numero na RAM
+    LDR r0, =const_20    @ Endereco do numero na RAM
     VLDR.F64 D0, [r0]    @ Carregar valor 64-bits para D0
     VPUSH {D0}           @ Empilhar na pilha RPN
 
@@ -255,7 +334,7 @@ fim_pot_0:
     VPOP {D0}            @ Retira N (qtd de linhas anteriores) em Float64
     VCVT.S32.F64 S0, D0  @ Converte N float para Inteiro
     VMOV r1, S0          @ r1 = N
-    LDR r2, =9          @ r2 = Linha atual (1-based)
+    LDR r2, =11          @ r2 = Linha atual (1-based)
     SUB r3, r2, r1       @ r3 = Linha alvo (Linha atual - N)
     SUB r3, r3, #1       @ r3 = Indice no array historico_res (0-based)
     LDR r0, =historico_res
@@ -265,10 +344,10 @@ fim_pot_0:
     VLDR.F64 D2, [r0]    @ Carrega o valor do historico
     VPUSH {D2}           @ Empilha o resultado
 
-    @ -- Fim da Linha 9: Salvando no historico --
+    @ -- Fim da Linha 11: Salvando no historico --
     VPOP {D0}            @ Copia o resultado final da linha
     LDR r0, =historico_res
-    LDR r1, =8          @ Indice da linha (0-based)
+    LDR r1, =10          @ Indice da linha (0-based)
     MOV r2, #8           @ 8 bytes por double
     MUL r1, r1, r2       @ Offset
     ADD r0, r0, r1       @ Endereco do historico

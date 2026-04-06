@@ -10,7 +10,7 @@ Grupo: RA1 9
 #include <ctype.h>
 
 Expressao parseExpressao(const char* expressao) {
-    Expressao expressao_linha;
+    Expressao expressao_linaha;
     expressao_linha.tamanho = 0;
     int posicao = 0;
 

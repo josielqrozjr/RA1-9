@@ -35,7 +35,7 @@ Fluxo geral:
 No diretório raiz do projeto, execute:
 
 ```bash
-gcc -Wall -Wextra -std=c11 -o compilador \
+gcc -o compilador \
 	main.c lerArquivo.c parseExpressao.c maquinaEstados.c \
 	excecoes.c executarExpressao.c gerarAssembly.c exibirResultados.c
 ```
@@ -62,15 +62,6 @@ Ao final da execução, o programa gera/atualiza o arquivo:
 ./compilador teste1.txt
 ./compilador teste2.txt
 ./compilador teste3.txt
-```
-
-### Rodar todos os testes em sequência
-
-```bash
-for arq in teste1.txt teste2.txt teste3.txt; do
-	echo "\n===== Executando $arq ====="
-	./compilador "$arq"
-done
 ```
 
 ### O que verificar nos testes
@@ -107,3 +98,4 @@ done
 - `teste3.txt`: conjunto de expressões adicionais para cenários mistos.
 - `cpulatorAssembly.s`: saída Assembly gerada pela última execução.
 - `compilador`: executável gerado após compilação.
+- `tokens_gerados.csv`: saída contendo os tokens gerados pelo parser.

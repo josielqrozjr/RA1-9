@@ -1,6 +1,6 @@
 /*
 file: excecoes.c
-Implementação das funções de tratamento de exceção.
+Implementação das validações léxicas e sintáticas para tratamento de erros.
 Autor: Josiel Queiroz Júnior
 GitHub: josielqrozjr
 Grupo: RA1 9
@@ -8,93 +8,100 @@ Grupo: RA1 9
 
 #include "assinatura.h"
 
-// Função para validar a expressão e detectar erros comuns
-bool validarExpressao(Expressao *expressao, int numeroLinha)
-{
-    int custoParenteses = 0; // Variável para controlar o custo dos parênteses
-    int operandosPilha = 0;  // Variável para controlar o número de operandos na pilha
-    Token ultimoOperando;    // Variável para armazenar o último operando para verificar divisão por zero
+// Retorna true (1) se a expressão for válida e false (0) se contiver erros
+bool validarExpressao(Expressao *exp, int numeroLinha) {
+    int saldoParenteses = 0;
+    int operandosNaPilha = 0; 
+    Token ultimoOperando; // Guarda o último operando para verificar divisão por zero
 
-    // Exceção 1: Verificar se a expressão atingiu o limite máximo de tokens
-    if (expressao->tamanho >= MAX_TOKEN_POR_EXPRESSAO && expressao->tokens[expressao->tamanho - 1].tipo != TOKEN_FIM)
-    {
-        printf("ERRO SINTATICO [Linha %d]: A expressao excedeu o limite maximo de %d tokens.\n", numeroLinha, MAX_TOKEN_POR_EXPRESSAO);
+    // 1. Excesso de tokens
+    if (exp->tamanho >= MAX_TOKEN_POR_EXPRESSAO && exp->tokens[exp->tamanho - 1].tipo != TOKEN_FIM) {
+        printf("ERRO SINTATICO [Linha %d]: A expressao excedeu o limite maximo de tokens.\n", numeroLinha);
         return false;
     }
 
-    for (int i = 0; i < expressao->tamanho; i++)
-    {
-        Token token = expressao->tokens[i];
+    for (int i = 0; i < exp->tamanho; i++) {
+        Token t = exp->tokens[i];
 
-        // Exceção 2: Verificar se o token está no formato correto (Caracteres estranhos, minúsculas, 3.14.5, 3,45)
-        if (token.tipo == TOKEN_ERRO)
-        {
-            printf("ERRO LEXICO [Linha %d]: Token '%s' invalido.\n", numeroLinha, token.valor);
+        // 2. Erros Léxicos
+        if (t.tipo == TOKEN_ERRO) {
+            printf("ERRO LEXICO [Linha %d]: Token '%s' invalido.\n", numeroLinha, t.valor);
             return false;
         }
 
-        // Exceção 3: Verificar se os parênteses estão balanceados e calcular o custo
-        if (token.tipo == TOKEN_PAREN_ABERTURA)
-        {
-            custoParenteses++;
-        }
-        else if (token.tipo == TOKEN_PAREN_FECHADO)
-        {
-            custoParenteses--;
-            if (custoParenteses < 0)
-            {
+        // 3. Parênteses
+        if (t.tipo == TOKEN_PAREN_ABERTURA) {
+            saldoParenteses++;
+        } 
+        else if (t.tipo == TOKEN_PAREN_FECHADO) {
+            saldoParenteses--;
+            if (saldoParenteses < 0) {
                 printf("ERRO SINTATICO [Linha %d]: Parenteses desbalanceados (fechamento ')' inesperado).\n", numeroLinha);
                 return false;
             }
         }
 
-        // Exceção 4: Verificar se os operadores estão válidos e validação semântica (divisão por zero, número de operandos)
-        if (token.tipo == TOKEN_OPERADOR || token.tipo == TOKEN_KEYWORD_RES || token.tipo == TOKEN_ALFA)
-        {
-            operandosPilha++;
-            ultimoOperando = token;
-        }
-        else if (token.tipo == TOKEN_OPERADOR)
-        {
-
-            // Cada operador binário precisa de pelo menos 2 operandos na pilha
-            if (operandosPilha < 2)
-            {
-                printf("ERRO SEMANTICO [Linha %d]: Operacao invalida '%s'. Faltam numeros para calcular!\n", numeroLinha, token.valor);
+        // 4. Simulador de Pilha e Validação Semântica
+        if (t.tipo == TOKEN_NUMERO || t.tipo == TOKEN_ALFA) { // CORREÇÃO: Trata ALFA como operando válido
+            operandosNaPilha++;
+            ultimoOperando = t; 
+        } 
+        else if (t.tipo == TOKEN_KEYWORD_RES) {
+            if (operandosNaPilha < 1) {
+                printf("ERRO SEMANTICO [Linha %d]: O comando RES precisa de um número 'N' antes dele.\n", numeroLinha);
                 return false;
             }
-
-            // Verificar divisão por zero
-            if ((strcmp(token.valor, "/") == 0 || strcmp(token.valor, "//") == 0 || strcmp(token.valor, "%") == 0) && ultimoOperando.tipo == TOKEN_NUMERO && (strcmp(ultimoOperando.valor, "0") == 0 || strcmp(ultimoOperando.valor, "0.0") == 0))
-            {
-
-                printf("ERRO MATEMATICO [Linha %d]: Divisao por zero detectada antes da operacao '%s'.\n", numeroLinha, token.valor);
-                return false;
-            }
-
-            // Consumir 2 números e devolve 1 resultado para a pilha
-            operandosPilha--;
-
-            // Atualizar o último operando para o resultado da operação, para verificar futuras divisões por zero
+            // O RES consome o N e coloca 1 resultado na pilha
             ultimoOperando.tipo = TOKEN_NUMERO;
-            strcpy(ultimoOperando.valor, "RESULTADO_VIRTUAL"); // Placeholder para o resultado da operação
+            strcpy(ultimoOperando.valor, "RESULTADO_RES");
+        }
+        else if (t.tipo == TOKEN_OPERADOR) {
+            
+            // Verifica Falta de Operandos
+            if (operandosNaPilha < 2) {
+                printf("ERRO SEMANTICO [Linha %d]: Operacao '%s' invalida. Faltam operandos!\n", numeroLinha, t.valor);
+                return false;
+            }
+            
+            // Verifica Divisão por Zero
+            if ((strcmp(t.valor, "/") == 0 || strcmp(t.valor, "//") == 0 || strcmp(t.valor, "%") == 0) && 
+                ultimoOperando.tipo == TOKEN_NUMERO && 
+                (strcmp(ultimoOperando.valor, "0") == 0 || strcmp(ultimoOperando.valor, "0.0") == 0)) {
+                
+                printf("ERRO MATEMATICO [Linha %d]: Divisao por zero detectada antes da operacao '%s'.\n", numeroLinha, t.valor);
+                return false;
+            }
+
+            // Consome 2 operandos e devolve 1 resultado para a pilha
+            operandosNaPilha--; 
+            
+            ultimoOperando.tipo = TOKEN_NUMERO; 
+            strcpy(ultimoOperando.valor, "RESULTADO_VIRTUAL");
         }
     }
 
-    // Exceção 5: Verificar se os parênteses estão balanceados no final da expressão
-    if (custoParenteses != 0)
-    {
-        printf("ERRO SINTATICO [Linha %d]: Parenteses desbalanceados (falta fechar %d parenteses).\n", numeroLinha, custoParenteses);
+    if (saldoParenteses != 0) {
+        printf("ERRO SINTATICO [Linha %d]: Parenteses desbalanceados (falta fechar %d parenteses).\n", numeroLinha, saldoParenteses);
         return false;
     }
+    
+    // Se o último token útil foi uma Variável, não é exigido operador
+    Token ultimoTokenUtil;
+    for (int k = exp->tamanho - 1; k >= 0; k--) {
+        if (exp->tokens[k].tipo != TOKEN_FIM && exp->tokens[k].tipo != TOKEN_PAREN_FECHADO) {
+            ultimoTokenUtil = exp->tokens[k];
+            break;
+        }
+    }
 
-    // Verifica se a expressão RPN resultou em um único valor final na pilha
-    // Caso a pilha tenha mais de 1 item no final (ex: "2 2 + 3 4"), então falta operador para combinar os operandos restantes
-    if (operandosPilha > 1)
-    {
+    if (ultimoTokenUtil.tipo == TOKEN_ALFA) {
+        operandosNaPilha--; // A variável recebe o valor que estava antes dela
+    }
+
+    if (operandosNaPilha > 1) {
         printf("ERRO SINTATICO [Linha %d]: Formato RPN invalido. Sobraram operandos sem operadores.\n", numeroLinha);
         return false;
     }
 
-    return true;
+    return true; 
 }
